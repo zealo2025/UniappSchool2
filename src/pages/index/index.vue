@@ -3,7 +3,7 @@
     <button type="default">跳转到学生管理页面</button>
   </navigator>
   <navigator url="/pages/teacher" open-type="redirect" hover-class="other-navigator-hover">
-    <button type="default">在当前页打开</button>
+    <button type="default">当前页面打开到老师管理页面</button>
   </navigator>
 </template>
 
