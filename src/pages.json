@@ -30,23 +30,23 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
-	},
-	
-	"tabBar": {//微信小程序的导航条， 和每个导航条跳转的页面
-		"color": "#7A7E83",
-		"selectedColor": "#3cc51f",
-		"borderStyle": "black",
-		"backgroundColor": "#ffffff",
-		"position":"top",
-		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页"
-		},{
-			"pagePath": "pages/student",
-			"text": "学生管理"
-		}, {
-			"pagePath": "pages/teacher",
-			"text": "老师管理"
-		}]
 	}
+	
+	// "tabBar": {//微信小程序的导航条， 和每个导航条跳转的页面
+	// 	"color": "#7A7E83",
+	// 	"selectedColor": "#3cc51f",
+	// 	"borderStyle": "black",
+	// 	"backgroundColor": "#ffffff",
+	// 	"position":"top",
+	// 	"list": [{
+	// 		"pagePath": "pages/index/index",
+	// 		"text": "首页"
+	// 	},{
+	// 		"pagePath": "pages/student",
+	// 		"text": "学生管理"
+	// 	}, {
+	// 		"pagePath": "pages/teacher",
+	// 		"text": "老师管理"
+	// 	}]
+	// }
 }
