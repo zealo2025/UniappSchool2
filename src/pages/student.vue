@@ -26,7 +26,7 @@
             <view class="picker">当前选择：{{isFromAbroadOptions.find(x => x.value === tiaojian.isFromAbroadTj)?.label}}</view>
           </picker>
 
-          <button type="primary" @click="() => chaxun()">查询</button>
+          <button type="primary" @click="chaxun">查询</button>
           <button type="primary" @click="addClick">新增</button>
         </div>
 
@@ -347,7 +347,9 @@
 
   const deleteClick = () => {
     if(!activeXs.value)
+    {
       return
+    }
     // fetch('/api/Student?id=' + xs.id,
     //   {method: 'DELETE'}
     // )
