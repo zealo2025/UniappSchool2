@@ -207,7 +207,7 @@
     graduatedSchooltj: "",
     politicaltj: "",
     degreetj: "",
-    idNumbertj: 0  
+    idNumbertj: ""
   })
 
   const genderOptions = ref([{value: "", label: "- 未选择 -"}, {value: "男", label: "男"}, {value: "女", label: "女"}])
@@ -230,34 +230,33 @@
     isXiangqingOpen.value = true
   }
 
-
   const onInputChange = (e: any, thename: string) =>
-  {    
-    if(tiaojian.value)
+  {  
+    if(activeteacher.value)
     {
       if(thename === "name")
     {
-      tiaojian.value.nametj = e.detail.value
+      activeteacher.value.name = e.detail.value
     }
       if(thename === "birthday")
     {
-      tiaojian.value.birthdaytj = e.detail.value 
+      activeteacher.value.birthday = e.detail.value 
     }
       if(thename ==="graduatedSchool")
     {
-      tiaojian.value.graduatedSchooltj = e.detail.value 
+      activeteacher.value.graduatedSchool = e.detail.value 
     }
       if(thename === "political")
     {
-      tiaojian.value.politicaltj = e.detail.value
+      activeteacher.value.political = e.detail.value
     }
     if(thename === "degree")
     {
-      tiaojian.value.degreetj = e.detail.value
+      activeteacher.value.degree = e.detail.value
     }
     if(thename === "idNumber")
     {
-      tiaojian.value.idNumbertj = e.detail.value
+      activeteacher.value.idNumber = e.detail.value
     }
     }
   } 
@@ -330,7 +329,7 @@
 
   const okClick = () =>{
     //这个地方好像没拿到 activeTeacher的 value
-    
+    debugger
      wx.request({
       url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/teacher',
       method: isEdit.value ? 'PUT' : 'POST',
