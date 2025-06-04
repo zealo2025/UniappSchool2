@@ -1,18 +1,60 @@
 <template>
   <view class="bk">
-    <navigator url="/pages/student" hover-class="navigator-hover" open-type="redirect">
-      <div class="mainButton" >
-        <uni-icons type="contact-filled" size="60" color="lightgray"></uni-icons>
-      </div>
-      <label class="mainMenu" for="">学生管理</label>
-    </navigator>
-
-    <navigator url="/pages/teacher" hover-class="navigator-hover" open-type="redirect">
-      <div class="mainButton">
+	<navigator class="navMainButton" url="/pages/student" hover-class="navigator-hover" open-type="redirect">
+      <div class="navIcon">
         <uni-icons type="staff-filled" size="60" color="lightgray"></uni-icons>
       </div>
-      <label class="mainMenu" for="">老师管理</label>
+	  <div>
+		<label class="mainMenu" for="">学生管理</label>
+	  </div>
     </navigator>
+
+    <navigator class="navMainButton" url="/pages/teacher" hover-class="navigator-hover" open-type="redirect">
+      <div class="navIcon">
+        <uni-icons type="auth-filled" size="60" color="lightgray"></uni-icons>
+      </div>
+	  <div>
+		<label class="mainMenu" for="">老师管理</label>
+	  </div>
+    </navigator>
+
+	<navigator class="navMainButton" url="" hover-class="navigator-hover" open-type="redirect">
+      <div class="navIcon">
+        <uni-icons type="vip-filled" size="60" color="lightgray"></uni-icons>
+      </div>
+	  <div>
+		<label class="mainMenu" for="">专业管理</label>
+	  </div>
+    </navigator>
+
+    <navigator class="navMainButton" url="" hover-class="navigator-hover" open-type="redirect">
+      <div class="navIcon">
+        <uni-icons type="medal-filled" size="60" color="lightgray"></uni-icons>
+      </div>
+	  <div>
+		<label class="mainMenu" for="">科目管理</label>
+	  </div>
+    </navigator>
+
+	<navigator class="navMainButton" url="" hover-class="navigator-hover" open-type="redirect">
+      <div class="navIcon">
+        <uni-icons type="location-filled" size="60" color="lightgray"></uni-icons>
+      </div>
+	  <div>
+		<label class="mainMenu" for="">毕业转校</label>
+	  </div>
+    </navigator>
+
+    <navigator class="navMainButton" url="" hover-class="navigator-hover" open-type="redirect">
+      <div class="navIcon">
+        <uni-icons type="weixin" size="60" color="green"></uni-icons>
+      </div>
+	  <div>
+		<label class="mainMenu" for="">联系我们</label>
+	  </div>
+    </navigator>
+	<div style="color: lightgray; margin-left: 20px;font-size: 12px;">张小芳个人在线作品， 技术框架Uni-app + 微信小程序 + TypeScript + C# .NET + SQL DB</div>
+	<div style="color: lightgray; margin-left: 20px;font-size: 12px;">本人电话：18722773896</div>
   </view>
 </template>
 
@@ -25,7 +67,13 @@
     height: 100vh;
     background-size: 100% 100%;
   }
-  .mainButton{
+  .navMainButton{
+	text-align: center;
+	width: 180px;
+	display: inline-block;
+	padding: 50px 5px;
+  }
+  .navMainButton .navIcon{
     border-radius: 50%;
     width: 80px;
     height: 80px;
@@ -34,8 +82,9 @@
     vertical-align: middle;
     line-height: 80px;
     display: inline-block;
-    margin: 100px 50px;
+	margin-bottom: 5px;
   }
+
   .mainMenu{
     font-size: 18px;
     color: lightgray;
