@@ -3,13 +3,19 @@
     <view style="width: 90%; text-align: center;">
       <div style="width: 100%;" >
         <div class="searchArea">
-          <label for="">姓名：</label>
+          <div class="searchAreaLabel">
+            <label for="">姓名：</label>
+          </div>
           <input type="text" value={{tiaojianteacher.name}} @input="(x) => onInputChange(x, 'name')"></input>
 
-          <label for="">生日：</label>
+          <div class="searchAreaLabel">
+            <label for="">生日：</label>
+          </div>
           <input type="text" value= {{tiaojian.birthday}} @input="(x) =>onInputChange(x,'birthday')"></input>
 
-          <label for="">性别：</label>
+          <div class="searchAreaLabel">
+            <label for="">性别：</label>
+          </div>
           <picker mode="selector" 
             :range="genderOptions"
             range-key="label"
@@ -17,19 +23,27 @@
               <view class="picker">当前选择：{{genderOptions.find(x => x.value === tiaojian.gendertj)?.label}}</view>
           </picker>
 
-          <label for="">毕业学校：</label>
+          <div class="searchAreaLabel">
+            <label for="">毕业院校：</label>
+          </div>
           <input type="text"  value= {{tiaojian.graduatedSchool}} @input="(x) =>onInputChange(x,'graduatedSchool')"></input>
 
-          <label for="">政治面貌：</label>
+          <div class="searchAreaLabel">
+            <label for="">政治面貌：</label>
+          </div>
          <input type="text" value= {{tiaojian.political}} @input="(x) =>onInputChange(x,'political')"></input> 
 
-          <label for="">学位：</label>
+         <div class="searchAreaLabel">
+            <label for="">学位：</label>
+          </div>
           <input type="text" value= {{tiaojian.degree}} @input="(x) =>onInputChange(x,'degree')"></input>
 
-          <label for="">身份证号码：</label>
+          <div class="searchAreaLabel">
+            <label for="">身份证号：</label>
+          </div>
           <input type="text" value= {{tiaojian.idNumber}} @input="(x) =>onInputChange(x,'idNumber')"></input>
-          <button type="primary" @click="() =>chaxun()">查询</button>
-          <button type="primary" @click="() =>addclick()">新增老师</button>
+          <button class="anniu" type="primary" @click="() =>chaxun()">查询</button>
+          <button class="anniu" type="primary" @click="() =>addclick()">新增老师</button>
         </div>
 
       </div>
@@ -46,7 +60,6 @@
       <uni-th align="center" width="60px">政治面貌</uni-th>
       <uni-th align="center" width="60px">学位</uni-th>
       <uni-th align="center" width="70px">操作</uni-th>
-      <uni-th align="center" width="70px"></uni-th>
     </uni-tr>
     <!-- 表格数据行 -->
     <uni-tr v-for="(teacher, index) in (filterteachers||teachers)" :key="index" class="nr">
@@ -164,7 +177,7 @@
       graduatedSchool?: string,
       political?: string,
       degree?: string,
-      idNumber?: number,
+      idNumber?: string,
   }
 
   export interface  tiaojianteacher{
@@ -175,7 +188,7 @@
     graduatedSchooltj?: string,
     politicaltj?: string,
     degreetj?: string,
-    idNumbertj?: number,  
+    idNumbertj?: string,  
   }
 
   import { ref } from 'vue'
@@ -219,32 +232,32 @@
 
 
   const onInputChange = (e: any, thename: string) =>
-  {
-    if(activeteacher.value)
+  {    
+    if(tiaojian.value)
     {
       if(thename === "name")
     {
-      activeteacher.value.name = e.detail.value
+      tiaojian.value.nametj = e.detail.value
     }
       if(thename === "birthday")
     {
-      activeteacher.value.birthday = e.detail.value 
+      tiaojian.value.birthdaytj = e.detail.value 
     }
       if(thename ==="graduatedSchool")
     {
-      activeteacher.value.graduatedSchool = e.detail.value 
+      tiaojian.value.graduatedSchooltj = e.detail.value 
     }
       if(thename === "political")
     {
-      activeteacher.value.political = e.detail.value
+      tiaojian.value.politicaltj = e.detail.value
     }
     if(thename === "degree")
     {
-      activeteacher.value.degree = e.detail.value
+      tiaojian.value.degreetj = e.detail.value
     }
     if(thename === "idNumber")
     {
-      activeteacher.value.idNumber = e.detail.value
+      tiaojian.value.idNumbertj = e.detail.value
     }
     }
   } 
@@ -255,10 +268,10 @@
     let arr = teachers.value
     //用来筛选的条件是谁?
     let tj = tiaojian.value
-
+    
     if(tj.nametj)
     {
-      arr = arr.filter(x => x.name === tj.nametj)
+      arr = arr.filter(x => x.name?.includes(tj.nametj || ""))
     }
 
     if(tj.birthdaytj)
@@ -288,7 +301,7 @@
 
     if(tj.idNumbertj)
     {
-      arr = arr.filter(x => x.idNumber === tj.idNumbertj)
+      arr = arr.filter(x => x.idNumber?.includes(tj.idNumbertj || ""))
     }
     //filteachers 有没有替换所有 teachers 去绑定？ 要用 filterteachers || teachers
     filterteachers.value =arr
@@ -303,7 +316,7 @@
           key: 'value'
         },
         success(res: any) {
-          
+          chaxun
           teachers.value = res.data
         },
         fail(err: any) {
@@ -316,6 +329,8 @@
   }
 
   const okClick = () =>{
+    //这个地方好像没拿到 activeTeacher的 value
+    
      wx.request({
       url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/teacher',
       method: isEdit.value ? 'PUT' : 'POST',
@@ -373,7 +388,7 @@
       graduatedSchool: "",
       political: "",
       degree: "",
-      idNumber: 0
+      idNumber: ""
     }
     activeteacher.value = kongteache
     isEdit.value = false
@@ -396,21 +411,26 @@
   }
   
   .searchArea label{
-    text-align: center;
     font-weight: bolder;
     line-height: 35px;
-    
+    margin-top: 10px;
+  }
+  .searchAreaLabel{
+    text-align: left;
   }
 
   input{
     border: 1px solid gray;
-    height: 50px;
+    height: 35px;
+    border-radius: 5px;
   }
 
   .picker {
-    padding: 15px;
     border: 1px solid gray;
     border-radius: 5px;
+    height: 35px;
+    vertical-align: middle;
+    line-height: 30px;
   }
 
   /* 以下是弹出框的样式 */
@@ -476,6 +496,11 @@
 
 .xiangqing view{
   padding-bottom: 10px;
+}
+
+.anniu{
+   margin: 10px 0 ;
+  border-radius: 3px;
 }
 
 </style>
