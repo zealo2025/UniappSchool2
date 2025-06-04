@@ -5,10 +5,14 @@
     <view style="width: 90%; text-align: center;">
       <div style="width: 100%;">
         <div class="searchArea">
-          <label for="">姓名：</label>
+          <div class="searchAreaLabel">
+            <label for="">姓名：</label>
+          </div>
           <input type="text" :value="tiaojian.nameTj" @input="nameInputChange"></input>
 
-          <label for="">性别：</label>
+          <div class="searchAreaLabel">
+            <label for="">性别：</label>
+          </div>
           <picker 
             mode="selector" 
             :range="genderOptions"
@@ -18,7 +22,9 @@
             <view class="picker">当前选择：{{genderOptions.find(x => x.value === tiaojian.genderTj)?.label}}</view>
           </picker> 
 
-          <label for="">是不是老外：</label>
+          <div class="searchAreaLabel">
+            <label for="">是否外籍人士：</label>
+          </div>
           <picker mode="selector" 
             :range="isFromAbroadOptions"
             range-key="label"
@@ -123,7 +129,7 @@
         <uni-th align="center" width="60px">性别</uni-th>
         <uni-th align="center" width="60px">年级</uni-th>
         <uni-th align="center" width="60px">班级</uni-th>
-        <uni-th align="center">操作</uni-th>
+        <uni-th align="center" width="50px">操作</uni-th>
       </uni-tr>
       <uni-tr v-for="(xuesheng, index) in (filterXsm || xueshengmen)" :key="index">
         <uni-td align="center">{{xuesheng.name}}</uni-td>
@@ -409,7 +415,7 @@
 
     if(tj.nameTj)
     {
-      xsm = xsm.filter(x => x.name?.includes(tj.nameTj))
+      xsm = xsm.filter(x => x.name?.includes(tj.nameTj || ""))
     }
 
     if(tj.isFromAbroadTj === true || tj.isFromAbroadTj === false)
@@ -486,26 +492,31 @@
   }
 
   .picker {
-    padding: 15px;
     border: 1px solid gray;
     border-radius: 5px;
-    
+    height: 35px;
+    vertical-align: middle;
+    line-height: 30px;
   }
-  input{
+ input{
     border: 1px solid gray;
-    height: 50px;
+    height: 35px;
+    border-radius: 5px;
   }
 
   .searchArea label{
-    text-align: left;
     font-weight: bolder;
     line-height: 35px;
+    margin-top: 10px;
+  }
+  .searchAreaLabel{
+    text-align: left;
   }
 
   button{
     background-color: lightskyblue;
     border: 1px solid gray;
-    margin: 3px 0;
+    margin: 10px 0;
   }
 
 
