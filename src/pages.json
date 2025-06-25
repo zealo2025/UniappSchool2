@@ -17,6 +17,13 @@
 			"style": {
 				"navigationBarTitleText": "学生信息管理"
 			}
+		},
+
+		{
+			"path": "pages/major",
+			"style": {
+				"navigationBarTitleText": "专业管理"
+			}
 		}
 	],
 	"easycom": {

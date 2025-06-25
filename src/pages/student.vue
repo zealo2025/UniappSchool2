@@ -6,31 +6,34 @@
       <div style="width: 100%;">
         <div class="searchArea">
           <div class="searchAreaLabel">
-            <label for="">姓名：</label>
+            <div class="name"><label for="">姓名：</label></div>
+            <input type="text" :value="tiaojian.nameTj" @input="nameInputChange"></input>
           </div>
-          <input type="text" :value="tiaojian.nameTj" @input="nameInputChange"></input>
+          
 
           <div class="searchAreaLabel">
-            <label for="">性别：</label>
-          </div>
-          <picker 
+            <div class="name"><label for="">性别：</label></div>
+            <picker 
             mode="selector" 
             :range="genderOptions"
             range-key="label"
             @change="genderChange"
           >
             <view class="picker">当前选择：{{genderOptions.find(x => x.value === tiaojian.genderTj)?.label}}</view>
-          </picker> 
+            </picker>
+          </div>
+           
 
           <div class="searchAreaLabel">
-            <label for="">是否外籍人士：</label>
-          </div>
-          <picker mode="selector" 
+            <div class="name"><label for="">是否外籍：</label></div>
+            <picker mode="selector" 
             :range="isFromAbroadOptions"
             range-key="label"
             @change="isFromAbroadChange">
             <view class="picker">当前选择：{{isFromAbroadOptions.find(x => x.value === tiaojian.isFromAbroadTj)?.label}}</view>
-          </picker>
+            </picker>
+          </div>
+          
 
           <button type="primary" @click="chaxun">查询</button>
           <button type="primary" @click="addClick">新增</button>
@@ -122,8 +125,10 @@
       </a-modal> -->
     </view>
 
+    <uni-load-more v-if="isLoading" status="loading" />
+
     <!-- 表格数据（所有学生） -->
-    <uni-table width="100%" border stripe emptyText="暂无更多数据" >
+    <uni-table v-if="!isLoading" width="100%" border stripe emptyText="暂无更多数据" >
       <uni-tr>
         <uni-th align="center" width="80px">姓名</uni-th>
         <uni-th align="center" width="60px">性别</uni-th>
@@ -151,38 +156,55 @@
       <view class="modal-content">
         <slot>
           <div class="searchArea">
-            <label>姓名：</label>
-            <input :value="activeXs?.name" @input="(e) => onInputChange(e, 'name')"></input>
-            <label>英文名：</label>
-            <input :value="activeXs?.englishName" @input="(e) => onInputChange(e, 'englishName')"></input>
-            <label>性别：</label>
-            <picker mode="selector" 
+            <div class="searchAreaLabel">
+              <div class="name"><label>姓名：</label></div>
+              <input :value="activeXs?.name" @input="(e) => onInputChange(e, 'name')"></input>
+            </div>
+
+            <div class="searchAreaLabel">
+              <div class="name"><label>英文名：</label></div>
+              <input :value="activeXs?.englishName" @input="(e) => onInputChange(e, 'englishName')"></input>
+            </div>
+
+            <div class="searchAreaLabel">
+              <div class="name"><label>性别：</label></div>
+              <picker mode="selector" 
               :range="genderOptions"
               range-key="label"
               @change="(e: any) => onInputChange(e, 'gender')">
               <view class="picker">当前选择：{{genderOptions.find(x => x.value === activeXs?.gender)?.label}}</view>
-            </picker>
-            <label>年级：</label>
-            <picker mode="selector" 
+              </picker>
+            </div>
+
+            <div class="searchAreaLabel">
+              <div class="name"><label>年级：</label></div>
+              <picker mode="selector" 
               :range="gradeOptions"
               range-key="label"
               @change="(e: any) => onInputChange(e, 'grade')">
               <view class="picker">当前选择：{{gradeOptions.find(x => x.value === activeXs?.grade)?.label}}</view>
-            </picker>
-            <label>班级：</label>
-            <picker mode="selector" 
+              </picker>
+            </div>
+
+            <div class="searchAreaLabel">
+              <div class="name"><label>班级：</label></div>
+              <picker mode="selector" 
               :range="classOptions"
               range-key="label"
               @change="(e: any) => onInputChange(e, 'class')">
               <view class="picker">当前选择：{{classOptions.find(x => x.value === activeXs?.class)?.label}}</view>
-            </picker>
-            <label>是不是老外：</label>
-            <picker mode="selector" 
-              :range="isFromAbroadOptions"
-              range-key="label"
-              @change="(e: any) => onInputChange(e, 'isFromAbroad')">
-              <view class="picker">当前选择：{{isFromAbroadOptions.find(x => x.value === activeXs?.isFromAbroad)?.label}}</view>
-            </picker>
+              </picker>
+            </div>
+
+            <div class="searchAreaLabel">
+              <div class="name"><label>是否外籍：</label></div>
+              <picker mode="selector" 
+                :range="isFromAbroadOptions"
+                range-key="label"
+                @change="(e: any) => onInputChange(e, 'isFromAbroad')">
+                <view class="picker">当前选择：{{isFromAbroadOptions.find(x => x.value === activeXs?.isFromAbroad)?.label}}</view>
+              </picker>
+            </div>
           </div>
         </slot>
       </view>
@@ -247,7 +269,8 @@
     {value: 3, label: '三年级'},{ value: 4, label: '四年级'},{value: 5, label: '五年级'},{ value: 6, label: '六年级'}])
   const classOptions = ref([{value: undefined, label: '- 未选择 -'}, {value: 1, label: '(1)班'},{ value: 2, label: '(2)班'},
     {value: 3, label: '(3)班'},{ value: 4, label: '(4)班'},{value: 5, label: '(5)班'},{ value: 6, label: '(6)班'}])
- 
+  const isLoading = ref<boolean>(false)
+
   const genderChange = (v: any) =>{
     let i: number = v.detail.value
     tiaojian.value.genderTj = genderOptions.value[i].value
@@ -297,6 +320,7 @@
   }
 
   const fetchXueshengmen = () =>{
+    isLoading.value = true
     wx.request({
       //稍后可以将这个地址放到一个 url base 的变量里面, 可以直接使用 /api/Student
       url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/Student',
@@ -307,6 +331,7 @@
       success(res) {
         chaxun(res.data)
         xueshengmen.value = res.data
+        isLoading.value = false
       },
       fail(err) {
         console.error('请求失败', err)
@@ -438,133 +463,8 @@
 
 </script>
 
-<style>
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .logo {
-    height: 200rpx;
-    width: 200rpx;
-    margin-top: 200rpx;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 50rpx;
-  }
-
-  .text-area {
-    display: flex;
-    justify-content: center;
-  }
-
-  .title {
-    font-size: 36rpx;
-    color: #8f8f94;
-  }
-
-  .table {
-    font-size: 10px;
-    border: 1rpx solid lightskyblue;
-  }
-  .table button{
-    font-size: 10px;
-  }
-
-  .tr {
-    display: flex;
-  }
-  .th, .td {
-    flex: 1;
-    padding: 20rpx;
-    text-align: center;
-    border-bottom: 1rpx solid #ddd;
-    border-right: 1rpx solid #ddd;
-  }
-  .th {
-    font-weight: bold;
-    background-color: #f5f5f5;
-  }
-  .td:last-child, .th:last-child {
-    border-right: none;
-  }
-
-  .picker {
-    border: 1px solid gray;
-    border-radius: 5px;
-    height: 35px;
-    vertical-align: middle;
-    line-height: 30px;
-  }
- input{
-    border: 1px solid gray;
-    height: 35px;
-    border-radius: 5px;
-  }
-
-  .searchArea label{
-    font-weight: bolder;
-    line-height: 35px;
-    margin-top: 10px;
-  }
-  .searchAreaLabel{
-    text-align: left;
-  }
-
-  button{
-    background-color: lightskyblue;
-    border: 1px solid gray;
-    margin: 10px 0;
-  }
-
-
-  /* 以下是弹出框的样式 */
-  .modal-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-
-  .modal-container {
-    width: 80%;
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .modal-header {
-    padding: 15px;
-    font-weight: bold;
-    border-bottom: 1px solid #eee;
-  }
-
-  .modal-content {
-    padding: 20px;
-  }
-
-  .modal-footer {
-    display: flex;
-    border-top: 1px solid #eee;
-  }
-
-  .modal-footer button {
-    flex: 1;
-    margin: 0;
-    border-radius: 0;
-    border: none;
-    line-height: 44px;
-  }
-
-  .modal-footer button:first-child {
-    border-right: 1px solid #eee;
+<style lang="scss">
+  .title 
+  {
   }
 </style>
