@@ -18,7 +18,7 @@
 	  </div>
     </navigator>
 
-	<navigator class="navMainButton" url="" hover-class="navigator-hover" open-type="redirect">
+	<navigator class="navMainButton" url="/pages/major" hover-class="navigator-hover" open-type="redirect">
       <div class="navIcon">
         <uni-icons type="vip-filled" size="60" color="lightgray"></uni-icons>
       </div>

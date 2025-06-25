@@ -4,46 +4,53 @@
       <div style="width: 100%;" >
         <div class="searchArea">
           <div class="searchAreaLabel">
-            <label for="">姓名：</label>
+            <div class="name"><label for="">姓名：</label></div>
+            <input type="text" value={{tiaojianteacher.name}} @input="(x) => onInputChange(x, 'name')"></input>
           </div>
-          <input type="text" value={{tiaojianteacher.name}} @input="(x) => onInputChange(x, 'name')"></input>
+         
 
           <div class="searchAreaLabel">
-            <label for="">生日：</label>
+            <div class="name"><label for="">生日：</label></div>
+            <input type="text" value= {{tiaojian.birthday}} @input="(x) =>onInputChange(x,'birthday')"></input>
           </div>
-          <input type="text" value= {{tiaojian.birthday}} @input="(x) =>onInputChange(x,'birthday')"></input>
+          
 
           <div class="searchAreaLabel">
-            <label for="">性别：</label>
-          </div>
-          <picker mode="selector" 
+            <div class="name"><label for="">性别：</label></div>
+            <picker mode="selector" 
             :range="genderOptions"
             range-key="label"
             @change="genderChange">
               <view class="picker">当前选择：{{genderOptions.find(x => x.value === tiaojian.gendertj)?.label}}</view>
-          </picker>
+            </picker>
+          </div>
+          
 
           <div class="searchAreaLabel">
-            <label for="">毕业院校：</label>
+            <div class="name"><label for="">毕业院校：</label></div>
+            <input type="text"  value= {{tiaojian.graduatedSchool}} @input="(x) =>onInputChange(x,'graduatedSchool')"></input>
           </div>
-          <input type="text"  value= {{tiaojian.graduatedSchool}} @input="(x) =>onInputChange(x,'graduatedSchool')"></input>
+          
 
           <div class="searchAreaLabel">
-            <label for="">政治面貌：</label>
+            <div class="name"><label for="">政治面貌：</label></div>
+            <input type="text" value= {{tiaojian.political}} @input="(x) =>onInputChange(x,'political')"></input>
           </div>
-         <input type="text" value= {{tiaojian.political}} @input="(x) =>onInputChange(x,'political')"></input> 
+          
 
          <div class="searchAreaLabel">
-            <label for="">学位：</label>
+            <div class="name"><label for="">学位：</label></div>
+            <input type="text" value= {{tiaojian.degree}} @input="(x) =>onInputChange(x,'degree')"></input>
           </div>
-          <input type="text" value= {{tiaojian.degree}} @input="(x) =>onInputChange(x,'degree')"></input>
+          
 
           <div class="searchAreaLabel">
-            <label for="">身份证号：</label>
+            <div class="name"><label for="">身份证号：</label></div>
+            <input type="text" value= {{tiaojian.idNumber}} @input="(x) =>onInputChange(x,'idNumber')"></input>
           </div>
-          <input type="text" value= {{tiaojian.idNumber}} @input="(x) =>onInputChange(x,'idNumber')"></input>
-          <button class="anniu" type="primary" @click="() =>chaxun()">查询</button>
-          <button class="anniu" type="primary" @click="() =>addclick()">新增老师</button>
+          
+          <button type="primary" @click="() =>chaxun()">查询</button>
+          <button type="primary" @click="() =>addclick()">新增老师</button>
         </div>
 
       </div>
@@ -112,32 +119,45 @@
       <view class="modal-content">
         <slot>
           <div class="searchArea">
-            <label>姓名：</label>
-            <input :value="activeteacher?.name" @input="(e) => onInputChange(e, 'name')"></input>
+            <div class="searchAreaLabel">
+              <div class="name"><label>姓名：</label></div>
+              <input :value="activeteacher?.name" @input="(e) => onInputChange(e, 'name')"></input>
+            </div>
 
-            <label>生日：</label>
-            <input :value="activeteacher?.birthday" @input="(e) => onInputChange(e, 'birthday')"></input>
+            <div class="searchAreaLabel">
+              <div class="name"><label>生日：</label></div>
+              <input :value="activeteacher?.birthday" @input="(e) => onInputChange(e, 'birthday')"></input>
+            </div>
 
-            <label>性别：</label>
-            <picker mode="selector" 
+            <div class="searchAreaLabel">
+              <div class="name"><label>性别：</label></div>
+              <picker mode="selector" 
               :range="genderOptions"
               range-key="label"
               @change="(e: any) => onInputChange(e, 'gender')">
               <view class="picker">当前选择：{{genderOptions.find(x => x.value === activeteacher?.gender)?.label}}</view>
-            </picker>
+              </picker>
+            </div>
 
-            <label>毕业学校：</label>
-            <input :value="activeteacher?.graduatedSchool" @input="(e) =>onInputChange(e,'graduatedSchool')">
+            <div class="searchAreaLabel">
+              <div class="name"><label>毕业学校：</label></div>
+              <input :value="activeteacher?.graduatedSchool" @input="(e) =>onInputChange(e,'graduatedSchool')">
+            </div>
 
-            <label>政治面貌：</label>
-            <input :value="activeteacher?.political" @input="(e) =>onInputChange(e,'political')">
+            <div class="searchAreaLabel">
+              <div class="name"><label>政治面貌：</label></div>
+              <input :value="activeteacher?.political" @input="(e) =>onInputChange(e,'political')">
+            </div>
 
-            <label>学位：</label>
-            <input :value="activeteacher?.degree" @input="(e) =>onInputChange(e,'degree')">
+            <div class="searchAreaLabel">
+              <div class="name"><label>学位：</label></div>
+              <input :value="activeteacher?.degree" @input="(e) =>onInputChange(e,'degree')">
+            </div>
 
-            <label>身份证号码：</label>
-            <input :value="activeteacher?.idNumber" @input="(e) =>onInputChange(e,'idNumber')">
-
+            <div class="searchAreaLabel">
+              <div class="name"><label>身份证号：</label></div>
+              <input :value="activeteacher?.idNumber" @input="(e) =>onInputChange(e,'idNumber')">
+            </div>
           </div>
         </slot>
       </view>
@@ -231,33 +251,40 @@
   }
 
   const onInputChange = (e: any, thename: string) =>
-  {  
+  {   
     if(activeteacher.value)
     {
       if(thename === "name")
-    {
-      activeteacher.value.name = e.detail.value
-    }
+      {
+        activeteacher.value.name = e.detail.value
+      }
       if(thename === "birthday")
-    {
-      activeteacher.value.birthday = e.detail.value 
-    }
+      {
+        activeteacher.value.birthday = e.detail.value 
+      }
+      if(thename ==="gender")
+      {
+        debugger
+        let a: number = parseInt(e.detail.value)
+        activeteacher.value.gender = genderOptions.value[a].value
+      }
+
       if(thename ==="graduatedSchool")
-    {
-      activeteacher.value.graduatedSchool = e.detail.value 
-    }
+      {
+        activeteacher.value.graduatedSchool = e.detail.value 
+      }
       if(thename === "political")
-    {
-      activeteacher.value.political = e.detail.value
-    }
-    if(thename === "degree")
-    {
-      activeteacher.value.degree = e.detail.value
-    }
-    if(thename === "idNumber")
-    {
-      activeteacher.value.idNumber = e.detail.value
-    }
+      {
+        activeteacher.value.political = e.detail.value
+      }
+      if(thename === "degree")
+      {
+        activeteacher.value.degree = e.detail.value
+      }
+      if(thename === "idNumber")
+      {
+        activeteacher.value.idNumber = e.detail.value
+      }
     }
   } 
 
@@ -328,8 +355,6 @@
   }
 
   const okClick = () =>{
-    //这个地方好像没拿到 activeTeacher的 value
-    debugger
      wx.request({
       url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/teacher',
       method: isEdit.value ? 'PUT' : 'POST',
@@ -401,105 +426,8 @@
 
 </script>
 
-<style>
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+<style lang="scss">
+  .title 
+  {
   }
-  
-  .searchArea label{
-    font-weight: bolder;
-    line-height: 35px;
-    margin-top: 10px;
-  }
-  .searchAreaLabel{
-    text-align: left;
-  }
-
-  input{
-    border: 1px solid gray;
-    height: 35px;
-    border-radius: 5px;
-  }
-
-  .picker {
-    border: 1px solid gray;
-    border-radius: 5px;
-    height: 35px;
-    vertical-align: middle;
-    line-height: 30px;
-  }
-
-  /* 以下是弹出框的样式 */
-.modal-mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.modal-container {
-  width: 80%;
-  background-color: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.modal-header {
-  padding: 15px;
-  font-weight: bold;
-  border-bottom: 1px solid #eee;
-}
-
-.modal-content {
-  padding: 20px;
-}
-
-.modal-footer {
-  display: flex;
-  border-top: 1px solid #eee;
-}
-
-.modal-footer button {
-  flex: 1;
-  margin: 0;
-  border-radius: 0;
-  border: none;
-  line-height: 44px;
-}
-
-.modal-footer button:first-child {
-  border-right: 1px solid #eee;
-}
-
-.custom-table{
-  background-color: red;
-}
-
-.custom-table ::v-deep .uni-table-th {
-  background-color: #f5f7fa;
-  color: #909399;
-}
-
-.xiangqing label{
-  font-weight: bolder;
-}
-
-.xiangqing view{
-  padding-bottom: 10px;
-}
-
-.anniu{
-   margin: 10px 0 ;
-  border-radius: 3px;
-}
-
 </style>
