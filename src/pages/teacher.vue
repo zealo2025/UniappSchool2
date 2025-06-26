@@ -189,29 +189,12 @@
 </template>
 
 <script setup lang="ts">
-  export interface teacher{
-      id? : number,
-      name?: string,
-      birthday?: string,
-      gender?: string,
-      graduatedSchool?: string,
-      political?: string,
-      degree?: string,
-      idNumber?: string,
-  }
-
-  export interface  tiaojianteacher{
-    idtj?: number,
-    nametj?: string,
-    birthdaytj?: string,
-    gendertj?: string,
-    graduatedSchooltj?: string,
-    politicaltj?: string,
-    degreetj?: string,
-    idNumbertj?: string,  
-  }
+  
 
   import { ref } from 'vue'
+  import { baseUrl } from '@/data/resource'
+  import { teacher, tiaojianteacher } from '@/model/myModel'
+
   const teachers = ref<teacher[]>([])
   const filterteachers = ref<teacher[]>()
   const activeteacher = ref<teacher>()
@@ -336,7 +319,7 @@
 
   const fetchteachers = () =>{
       wx.request({
-        url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/Teacher',
+        url: `${baseUrl}/api/Teacher`,
         method: 'GET', // 或 'POST', 'PUT' 等
         data: {
           key: 'value'
@@ -356,7 +339,7 @@
 
   const okClick = () =>{
      wx.request({
-      url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/teacher',
+      url: `${baseUrl}/api/teacher`,
       method: isEdit.value ? 'PUT' : 'POST',
       data: activeteacher.value,
       header: { 
@@ -377,7 +360,7 @@
 
   const deleteClick = () =>{
     wx.request({
-      url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/Teacher?id=' + activeteacher.value?.id,
+      url: `${baseUrl}/api/Teacher?id=${activeteacher.value?.id}`,
       method: 'DELETE',
       success:() => {
         fetchteachers()

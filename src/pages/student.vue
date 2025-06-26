@@ -235,23 +235,10 @@
 </template>
 
 <script setup lang="ts">
-  export interface xuesheng{
-    id?: number,
-    name?: string,
-    grade?: number,
-    class?: number,
-    gender?: string,
-    englishName?: string,
-    isFromAbroad?: boolean
-  }
-
-  export interface tiaojianLeixing{
-    nameTj?: string
-    genderTj?: string,
-    isFromAbroadTj?: boolean
-  }
-
   import { ref } from 'vue'
+  import { baseUrl } from '@/data/resource'
+  import { xuesheng, tiaojianLeixing } from '@/model/myModel'
+
   const xueshengmen = ref<xuesheng[]>([])
   const filterXsm = ref<xuesheng[]>()
   const activeXs = ref<xuesheng>()
@@ -323,7 +310,7 @@
     isLoading.value = true
     wx.request({
       //稍后可以将这个地址放到一个 url base 的变量里面, 可以直接使用 /api/Student
-      url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/Student',
+      url: `${baseUrl}/api/Student`,
       method: 'GET', // 或 'POST', 'PUT' 等
       data: {
         key: 'value'
@@ -356,7 +343,7 @@
     //     })
     // isOpen.value = false
     wx.request({
-      url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/Student',
+      url: `${baseUrl}/api/Student`,
       method: isEdit.value ? 'PUT' : 'POST',
       data: activeXs.value,
       header: { // 请求头
@@ -390,7 +377,7 @@
     // })
 
     wx.request({
-      url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/Student?id=' + activeXs.value.id,
+      url: `${baseUrl}/api/Student?id=${activeXs.value.id}`,
       method: 'DELETE',
       success:() => {
         fetchXueshengmen()

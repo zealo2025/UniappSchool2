@@ -37,7 +37,7 @@
             :range="isImportantOptions"
             range-key="label"
             @change="isImportantChange">
-              <view class="picker">当前选择：{{isImportantOptions.find(x => x.value === tiaojianmajor.isImportanttj)?.label}}</view>
+              <view class="picker">当前选择：{{isImportantOptions.find(x => x.value === kongTiaojianmajor.isImportanttj)?.label}}</view>
             </picker> 
           </div>                        
         </div>
@@ -170,26 +170,9 @@
 </template>
 
 <script setup lang="ts">
-export interface major{
-    id?: number
-    name?: string
-    description?: string
-    years?: number
-    startTime?: string
-    isImportant?: boolean
-}
-
-export interface tiaojianmajor{
-    idtj?: number,
-    nametj?: string,
-    descriptiontj?: string,
-    yearstj?: number,
-    startTimetj?: string,
-    isImportanttj?: boolean //
-
-}
-
 import { ref } from 'vue'
+import { baseUrl } from '@/data/resource'
+import { major, tiaojianmajor } from '@/model/myModel'
 
 const majors = ref<major[]>([])
 const filtermajor = ref<major[]>()
@@ -198,7 +181,7 @@ const isEdit = ref<boolean>()
 const isOpen = ref<boolean>(false)
 const isXiangqingOpen =ref<boolean>(false)
 const isShuanchuOpen = ref<boolean>(false)
-const tiaojianmajor = ref<tiaojianmajor>({ 
+const kongTiaojianmajor = ref<tiaojianmajor>({ 
     nametj: "",
     descriptiontj: "",
     yearstj: 0,
@@ -217,7 +200,7 @@ const isImportantOptions = ref([{value: undefined, label: "- 未选择 -"}, {val
 
 const  fetchmajor = () =>{
      wx.request({
-        url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/major',
+        url: `${baseUrl}/api/major`,
         method: 'GET', 
         data: {
           key: 'value'
@@ -237,7 +220,7 @@ const  fetchmajor = () =>{
 
 const deleteClick = () =>{
     wx.request({
-      url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/major?id=' + activemajor.value?.id,
+      url: `${baseUrl}/api/major?id=${activemajor.value?.id}`,
       method: 'DELETE',
       success:() => {
         fetchmajor()
@@ -254,7 +237,7 @@ const deleteClick = () =>{
 
 const okClick = () =>{
      wx.request({
-      url: 'https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net/api/major',
+      url: `${baseUrl}/api/major`,
       method: isEdit.value ? 'PUT' : 'POST',
       data: activemajor.value,
       header: { 
@@ -281,7 +264,7 @@ fetchmajor()
 
  const isImportantChange = (a: any) =>{
     let s:number = a.detail.value
-    tiaojianmajor.value.isImportanttj = isImportantOptions.value[s].value
+    kongTiaojianmajor.value.isImportanttj = isImportantOptions.value[s].value
   }
 
   const editClick = (zuanye: major) =>{
@@ -350,7 +333,7 @@ const chaxun = () =>{
   
  
     let arr = majors.value
-    let tj = tiaojianmajor.value
+    let tj = kongTiaojianmajor.value
    
     if(tj.nametj)
     {

@@ -1,0 +1,1 @@
+export const baseUrl = "https://schoolapi-fqd0d0hhftajfkdv.eastasia-01.azurewebsites.net"
