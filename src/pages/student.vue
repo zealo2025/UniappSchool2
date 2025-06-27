@@ -256,8 +256,8 @@
     {value: 3, label: '三年级'},{ value: 4, label: '四年级'},{value: 5, label: '五年级'},{ value: 6, label: '六年级'}])
   const classOptions = ref([{value: undefined, label: '- 未选择 -'}, {value: 1, label: '(1)班'},{ value: 2, label: '(2)班'},
     {value: 3, label: '(3)班'},{ value: 4, label: '(4)班'},{value: 5, label: '(5)班'},{ value: 6, label: '(6)班'}])
-  const isLoading = ref<boolean>(false)
-
+    const isLoading = ref<boolean>(false)
+    
   const genderChange = (v: any) =>{
     let i: number = v.detail.value
     tiaojian.value.genderTj = genderOptions.value[i].value
