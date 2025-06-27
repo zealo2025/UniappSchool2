@@ -56,9 +56,10 @@
       </div>
     </view>
   </view>
+  <uni-load-more v-if="isLoading" status="loading" />
   
   <!-- 表格数据 -->
-  <uni-table width="100%" :border="false" stripe emptyText="暂无更多数据" class="custom-table">
+  <uni-table   v-if="!isLoading"width="100%" :border="false" stripe emptyText="暂无更多数据" class="custom-table">
     <!-- 表头行 -->
     <uni-tr >
       
@@ -198,6 +199,7 @@
   const teachers = ref<teacher[]>([])
   const filterteachers = ref<teacher[]>()
   const activeteacher = ref<teacher>()
+  const isLoading = ref<boolean>(false)
 
   const isXiangqingOpen = ref<boolean>(false) //这个框名字改一下, 看名字感觉是 : 是否修改框打开 , 那么你是用在详情页面, 可以改成 isXiangqingOpen
   const isEdit = ref<boolean>()
@@ -318,6 +320,7 @@
 
 
   const fetchteachers = () =>{
+      isLoading.value = true
       wx.request({
         url: `${baseUrl}/api/Teacher`,
         method: 'GET', // 或 'POST', 'PUT' 等
@@ -327,6 +330,7 @@
         success(res: any) {
           chaxun
           teachers.value = res.data
+          isLoading.value = false
         },
         fail(err: any) {
           console.error('请求失败', err)

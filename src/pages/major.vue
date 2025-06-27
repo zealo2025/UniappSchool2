@@ -49,8 +49,9 @@
 
       </div>
     </view>
+    <uni-load-more v-if="isLoading" status="loading" />
 
-    <uni-table width="100%" :border="false" stripe>
+    <uni-table width="100%" :border="false" stripe v-if="!isLoading" emptyText="暂无更多数据">
       <uni-tr >    
           <uni-th align="center" width="40px">名字</uni-th>
           <uni-th align="center" width="60px">描述</uni-th>
@@ -181,6 +182,7 @@ const isEdit = ref<boolean>()
 const isOpen = ref<boolean>(false)
 const isXiangqingOpen =ref<boolean>(false)
 const isShuanchuOpen = ref<boolean>(false)
+const isLoading = ref<boolean>(false)
 const kongTiaojianmajor = ref<tiaojianmajor>({ 
     nametj: "",
     descriptiontj: "",
@@ -199,6 +201,7 @@ const isImportantOptions = ref([{value: undefined, label: "- 未选择 -"}, {val
   }
 
 const  fetchmajor = () =>{
+      isLoading.value=true
      wx.request({
         url: `${baseUrl}/api/major`,
         method: 'GET', 
@@ -208,6 +211,7 @@ const  fetchmajor = () =>{
         success(res: any) {
           chaxun
           majors.value = res.data
+          isLoading.value = false
         },
         fail(err: any) {
           console.error('请求失败', err)
